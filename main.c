@@ -1,10 +1,12 @@
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
+#include <GL/glu.h>  // Needed for gluPerspective and gluLookAt
+
+#include "render.h"
 #include "particle.h"
 
 #define VB_MATH_IMPLEMENTATION
 #include "vb.h"
-#include <GL/glu.h>  // Needed for gluPerspective and gluLookAt
 
 typedef struct {
     int running;
@@ -56,8 +58,8 @@ int main(void) {
 
     while (simulation.running) {
         handle_events(&simulation);
-        update_particles();
-        draw_particles();
+        update_ps(&particles);
+        draw_ps(&particles);
         SDL_GL_SwapWindow(window);
     }
 
