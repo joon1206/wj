@@ -25,7 +25,7 @@ void init_particles() {
 }
 
 void update_particles() {
-    // Optional: add movement or interaction logic here
+    // Placeholder rn. Any movement should go here or other interactions 
 }
 
 void draw_particles() {
