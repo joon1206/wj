@@ -8,16 +8,6 @@
 #define VB_MATH_IMPLEMENTATION
 #include "vb.h"
 
-typedef struct {
-    int running;
-    float window_width;
-    float window_height;
-} sim_t;
-
-void handle_events(sim_t *sim);
-static inline void initOpenGL(float width, float height);
-static inline void draw(void);
-
 int main(void) {
 
     sim_t simulation = {
@@ -58,52 +48,3 @@ int main(void) {
     SDL_Quit();
     return 0;
 }
-
-void handle_events(sim_t *sim)
-{
-    SDL_Event event;
-
-    while(SDL_PollEvent(&event)) {
-        switch (event.type) {
-            case SDL_QUIT:
-                sim->running = 0;
-                break;
-            case SDL_WINDOWEVENT:
-                if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
-                    int new_width = event.window.data1;
-                    int new_height = event.window.data2;
-                    glViewport(0, 0, new_width, new_height);
-                    sim->window_width = new_width;
-                    sim->window_height = new_height;
-                }
-                break;
-
-        }
-    }
-}
-
-static inline void initOpenGL(float width, float height)
-{
-    glewInit();
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(45.0, width / height , 0.1, 100.0);
-
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    gluLookAt(
-            0.0, 5.0, 10.0,   // eye position
-            0.0, 0.0, 0.0,    // center of scene
-            0.0, 1.0, 0.0     // up vector
-    );   
-
-    
-    glEnable(GL_DEPTH_TEST);
-}
-
-static inline void draw(void)
-{
-    glClearColor(0.2, 0.3, 0.3, 1.0);
-    glClear(GL_COLOR_BUFFER_BIT);
-}
-
