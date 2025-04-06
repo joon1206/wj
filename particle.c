@@ -1,18 +1,9 @@
 #include "particle.h"
 #include "render.h"
-#include <stdlib.h>
+#include "vb.h"
 
-#define MAX_PARTICLES 100
-
-typedef struct {
-    float x, y, z;
-    float nx, ny, nz;
-    float radius;
-} Particle;
-
-static Particle particles[MAX_PARTICLES];
-
-void init_particles() {
+void init_particles(Particle particles[])
+{
     for (int i = 0; i < MAX_PARTICLES; i++) {
         particles[i].x = (rand() % 200 - 100) / 10.0f;
         particles[i].y = (rand() % 200 - 100) / 10.0f;
@@ -24,14 +15,45 @@ void init_particles() {
     }
 }
 
-void update_particles() {
-    // Placeholder rn. Any movement should go here or other interactions 
+void init_ps(ParticleSystem* ps)
+{
+    ps->count = MAX_PARTICLES;
+    for (int i = 0; i < MAX_PARTICLES; i++) {
+        ps->x[i] = (rand() % 200 - 100) / 10.0f;
+        ps->y[i] = (rand() % 200 - 100) / 10.0f;
+        ps->z[i] = (rand() % 200 - 100) / 10.0f;
+
+        ps->nx[i] = 0.0f;
+        ps->ny[i] = 1.0f;
+        ps->nz[i] = 0.0f;
+
+        ps->radius[i] = 0.5f;
+    }
 }
 
-void draw_particles() {
+void update_particles(Particle particles[])
+{
+
+}
+
+void draw_particles(Particle particles[])
+{
     for (int i = 0; i < MAX_PARTICLES; i++) {
         draw_plate(particles[i].x, particles[i].y, particles[i].z,
                    particles[i].nx, particles[i].ny, particles[i].nz,
                    particles[i].radius);
+    }
+}
+
+void update_ps(ParticleSystem *ps) {}
+
+void draw_ps(ParticleSystem *ps)
+{
+    for (int i = 0; i < MAX_PARTICLES; i++) {
+        draw_plate(
+            ps->x[i], ps->y[i], ps->z[i],
+            ps->nx[i], ps->ny[i], ps->nz[i],
+            ps->radius[i]
+        );
     }
 }
