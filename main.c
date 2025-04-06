@@ -7,7 +7,13 @@
 #include <GL/glu.h>  // Needed for gluPerspective and gluLookAt
 
 
-int main(int argc, char* argv[]) {
+void draw(void)
+{
+    glClearColor(0.2, 0.3, 0.3, 1.0);
+    glClear(GL_COLOR_BUFFER_BIT);
+}
+
+int main(void) {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("SDL Error: %s\n", SDL_GetError());
         return 1;
@@ -34,7 +40,7 @@ int main(int argc, char* argv[]) {
 
     init_renderer();
     init_particles();
-    glClearColor(0.1f, 0.1f, 0.15f, 1.0f); // Dark navy blue@!!!!!!!!
+    draw();
 
 
     int running = 1;
