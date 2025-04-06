@@ -1,7 +1,5 @@
-#include "render.h"
 #include "vb.h"
-#include <GL/glew.h>
-
+#include "render.h"
 
 void init_renderer()
 {
@@ -26,4 +24,25 @@ void draw_plate(float x, float y, float z,
     }
     glEnd();
     glPopMatrix();
+}
+
+void handle_events(sim_t *sim)
+{
+    SDL_Event event;
+    while(SDL_PollEvent(&event)) {
+        switch (event.type) {
+        case SDL_QUIT:
+            sim->running = 0;
+            break;
+        case SDL_WINDOWEVENT:
+            if (event.window.event == SDL_WINDOWEVENT_RESIZED) {
+                int new_width = event.window.data1;
+                int new_height = event.window.data2;
+                glViewport(0, 0, new_width, new_height);
+                sim->window_width = new_width;
+                sim->window_height = new_height;
+            }
+            break;
+        }
+    }
 }
