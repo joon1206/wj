@@ -29,7 +29,7 @@ void draw_particles(Particle particles[])
 }
 
 /*
-Converts an i32x4 seed to a random f32x4 using MurmurHash and Wang Hash mix.
+Converts an i32x4 value to a random f32x4 using MurmurHash and Wang Hash mix.
 Due to the usage of _mm_mullo_epi32, this requires SSE4 instructions.
 */  
 static inline f32x4 hash_f32x4(__m128i x)
