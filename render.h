@@ -1,4 +1,5 @@
 #pragma once
+#include "vb.h"
 
 void init_renderer();
 void draw_plate(float x, float y, float z,

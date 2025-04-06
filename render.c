@@ -1,17 +1,17 @@
 #include "render.h"
+#include "vb.h"
 #include <GL/glew.h>
-#include <math.h>
-
-#define M_PI 3.14159265358979323846
 
 
-void init_renderer() {
+void init_renderer()
+{
     // Placeholder: for now we use immediate mode
 }
 
 void draw_plate(float x, float y, float z,
                 float nx, float ny, float nz,
-                float radius) {
+                float radius)
+{
     const int segments = 20;
     glPushMatrix();
     glTranslatef(x, y, z);

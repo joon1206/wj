@@ -1,9 +1,9 @@
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
-#include <stdio.h>
-#include "render.h"
 #include "particle.h"
 
+#define VB_MATH_IMPLEMENTATION
+#include "vb.h"
 #include <GL/glu.h>  // Needed for gluPerspective and gluLookAt
 
 typedef struct {
@@ -48,11 +48,12 @@ int main(void) {
     glEnable(GL_DEPTH_TEST);
 
     init_renderer();
-    init_particles();
+
+    ParticleSystem particles;
+    init_ps(&particles);
     draw();
 
 
-    SDL_Event event;
     while (simulation.running) {
         handle_events(&simulation);
         update_particles();
