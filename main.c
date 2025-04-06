@@ -15,7 +15,8 @@ typedef struct {
 } sim_t;
 
 void handle_events(sim_t *sim);
-void draw(void);
+static inline void initOpenGL(float width, float height);
+static inline void draw(void);
 
 int main(void) {
 
@@ -27,27 +28,16 @@ int main(void) {
 
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("SDL Error: %s\n", SDL_GetError());
-        return 1;
+        return -1;
     }
 
     SDL_Window* window = SDL_CreateWindow("3D Plate Packing",
-        SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, simulation.window_width, simulation.window_height,
-        SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE );
+        SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+        simulation.window_width, simulation.window_height,
+        SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 
     SDL_GLContext context = SDL_GL_CreateContext(window);
-    glewInit();
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(45.0, simulation.window_width / simulation.window_height , 0.1, 100.0);
-
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    gluLookAt(0.0, 5.0, 10.0,   // eye position
-          0.0, 0.0, 0.0,    // center of scene
-          0.0, 1.0, 0.0);   // up vector
-
-    
-    glEnable(GL_DEPTH_TEST);
+    initOpenGL(simulation.window_width, simulation.window_height);
 
     init_renderer();
 
@@ -92,7 +82,26 @@ void handle_events(sim_t *sim)
     }
 }
 
-void draw(void)
+static inline void initOpenGL(float width, float height)
+{
+    glewInit();
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(45.0, width / height , 0.1, 100.0);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    gluLookAt(
+            0.0, 5.0, 10.0,   // eye position
+            0.0, 0.0, 0.0,    // center of scene
+            0.0, 1.0, 0.0     // up vector
+    );   
+
+    
+    glEnable(GL_DEPTH_TEST);
+}
+
+static inline void draw(void)
 {
     glClearColor(0.2, 0.3, 0.3, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
