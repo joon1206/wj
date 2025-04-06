@@ -1,9 +1,9 @@
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
-#include <stdio.h>
-#include "render.h"
 #include "particle.h"
 
+#define VB_MATH_IMPLEMENTATION
+#include "vb.h"
 #include <GL/glu.h>  // Needed for gluPerspective and gluLookAt
 
 
@@ -39,7 +39,9 @@ int main(void) {
     glEnable(GL_DEPTH_TEST);
 
     init_renderer();
-    init_particles();
+
+    ParticleSystem particles;
+    init_ps(&particles);
     draw();
 
 
@@ -50,8 +52,8 @@ int main(void) {
             if (event.type == SDL_QUIT) running = 0;
         }
 
-        update_particles();
-        draw_particles();
+        update_ps(&particles);
+        draw_ps(&particles);
 
         SDL_GL_SwapWindow(window);
     }
