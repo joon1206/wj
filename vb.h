@@ -491,13 +491,13 @@ extern void vb_vec4sub(vbVec4 *d, vbVec4 v0, vbVec4 v1);
 extern void vb_vec4mul(vbVec4 *d, vbVec4 v,  float s);
 extern void vb_vec4div(vbVec4 *d, vbVec4 v,  float s);
 
-extern inline f32 reduce_f32x4(f32x4 v);
+extern f32 reduce_f32x4(f32x4 v);
 // extern inline f32 reduce_f32x8(f32x8 v);
 #ifdef __AVX512__
-extern inline f32 reduce_f32x16(f32x16 v);
+extern f32 reduce_f32x16(f32x16 v);
 #endif
-extern inline f32 dot_f32x4(f32x4 a, f32x4 b);
-extern inline f32 dot_f32x8(f32x8 a, f32x8 b);
+extern f32 dot_f32x4(f32x4 a, f32x4 b);
+extern f32 dot_f32x8(f32x8 a, f32x8 b);
 
 extern int posix_memalign(void **memptr, size_t alignment, size_t size);
 
