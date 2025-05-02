@@ -1,4 +1,5 @@
 #include "render.h"
+#include <GL/glu.h>
 
 void init_renderer()
 {

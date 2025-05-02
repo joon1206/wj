@@ -1,7 +1,6 @@
 #include "particle.h"
 #include "render.h"
 #include "vb.h"
-#include <emmintrin.h>
 #include <xmmintrin.h>
 
 void init_particles(Particle particles[])

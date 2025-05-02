@@ -1,6 +1,6 @@
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
-#include <GL/glu.h>  // Needed for gluPerspective and gluLookAt
+// #include <GL/glu.h>  // Needed for gluPerspective and gluLookAt
 
 #include "render.h"
 #include "particle.h"
